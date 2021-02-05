@@ -28,7 +28,7 @@ public class LinkedListPalindrome {
         return true;
     }
 
-    public static void reverse(){
+    public static void reverse(ListNode head){
         ListNode prev=null;
         ListNode curr = head;
         ListNode next =null;
