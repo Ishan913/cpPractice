@@ -17,7 +17,9 @@ public class RemoveElement {
                 ind++;
             }
         }
-        return ++ind;
+        if (ind==0 && isEmpty==0)
+            return nums.length;
+        return ind;
     }
 
     public static void main(String[] args) {
