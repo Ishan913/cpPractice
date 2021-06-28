@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class BitWiseAnd {
+public class StoneGame {
 
     static class FastReader {
         BufferedReader br;
@@ -50,51 +50,32 @@ public class BitWiseAnd {
         }
     }
 
-
-    static int power(int A,
-                           int B, int C)
-    {
-
-        // Base cases
-        if (A == 0)
-            return 0;
-        if (B == 0)
-            return 1;
-
-        // If B is even
-        long y;
-        if (B % 2 == 0)
-        {
-            y = power(A, B / 2, C);
-            y = (y * y) % C;
-        }
-
-        // If B is odd
-        else
-        {
-            y = A % C;
-            y = (y * power(A, B - 1,
-                    C) % C) % C;
-        }
-
-        return (int)((y + C) % C);
-    }
-
     public static void main(String[] args) {
-        FastReader m = new FastReader();
-        int test = m.nextInt();
-        for (int i = 0; i < test; i++) {
+        FastReader in = new FastReader();
+        int test = in.nextInt();
+        for (int z = 0; z < test; z++) {
+            int n= in.nextInt();
+            int[] power = new int[n];
+            for (int i = 0; i < n; i++) {
+                power[i]=in.nextInt();
+            }
+            int l1=0;
+            int l2=0;
+            int r1=0;
+            int r2=0;
+            for (int i = 0; i < n; i++) {
+                if (power[i]==1){
+                    l1= i+1;
+                    r1=n-i;
+                }
+                else if (power[i]==n){
+                    l2= i+1;
+                    r2=n-i;
+                }
+            }
+//            int ans1=Math.min(Math.max(l1,l2),Math.max(r1,r2));
 
-
-            int n = m.nextInt();
-            int Mm = m.nextInt();
-
-            int modulo = 1000000007;
-            int x = power(2, n, modulo);
-            x = (x - (1) % modulo) % modulo;
-            x=power(x, Mm, modulo);
-                System.out.println(x);
+            System.out.println(Math.min(Math.min(Math.max(l1,l2),Math.max(r1,r2)),Math.min(l1+r2,l2+r1)));
         }
-
     }
 }

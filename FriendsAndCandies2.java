@@ -1,9 +1,10 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class BitWiseAnd {
+public class FriendsAndCandies2 {
 
     static class FastReader {
         BufferedReader br;
@@ -51,50 +52,29 @@ public class BitWiseAnd {
     }
 
 
-    static int power(int A,
-                           int B, int C)
-    {
-
-        // Base cases
-        if (A == 0)
-            return 0;
-        if (B == 0)
-            return 1;
-
-        // If B is even
-        long y;
-        if (B % 2 == 0)
-        {
-            y = power(A, B / 2, C);
-            y = (y * y) % C;
-        }
-
-        // If B is odd
-        else
-        {
-            y = A % C;
-            y = (y * power(A, B - 1,
-                    C) % C) % C;
-        }
-
-        return (int)((y + C) % C);
-    }
 
     public static void main(String[] args) {
-        FastReader m = new FastReader();
-        int test = m.nextInt();
-        for (int i = 0; i < test; i++) {
-
-
-            int n = m.nextInt();
-            int Mm = m.nextInt();
-
-            int modulo = 1000000007;
-            int x = power(2, n, modulo);
-            x = (x - (1) % modulo) % modulo;
-            x=power(x, Mm, modulo);
-                System.out.println(x);
+        FastReader in = new FastReader();
+        int test = in.nextInt();
+        for (int z = 0; z < test; z++) {
+            int n= in.nextInt();
+            int[] candies = new int[n];
+            int sum=0;
+            for (int i = 0; i < n; i++) {
+                candies[i]=in.nextInt();
+                sum=sum+candies[i];
+            }
+            if (sum%n!=0)
+                System.out.println(-1);
+            else{
+                int indi = sum/n;
+                int ans=0;
+                for (int i = 0; i < n; i++) {
+                    if (candies[i]>indi)
+                        ans++;
+                }
+                System.out.println(ans);
+            }
         }
-
     }
 }

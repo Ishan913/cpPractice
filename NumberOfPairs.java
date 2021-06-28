@@ -1,9 +1,10 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
-public class BitWiseAnd {
+public class NumberOfPairs {
 
     static class FastReader {
         BufferedReader br;
@@ -50,51 +51,44 @@ public class BitWiseAnd {
         }
     }
 
+    public static int solve(int[] nums, int z, int u) {
+        int left = 0, right = nums.length - 1, count = 0;
 
-    static int power(int A,
-                           int B, int C)
-    {
-
-        // Base cases
-        if (A == 0)
-            return 0;
-        if (B == 0)
-            return 1;
-
-        // If B is even
-        long y;
-        if (B % 2 == 0)
-        {
-            y = power(A, B / 2, C);
-            y = (y * y) % C;
+        while (left < right) {
+            int sum = nums[left] + nums[right];
+            if (sum >= z ) {
+                int x=left;
+                int y=right;
+                while (x<y){
+                    int mid = x+ (y-x)/2;
+                    if (nums[mid]+nums[right]<=u)
+                        x=mid+1;
+                    else
+                        y=mid;
+                }
+                count+=x-left;
+                right--;
+            }
+            else
+                left++;
         }
 
-        // If B is odd
-        else
-        {
-            y = A % C;
-            y = (y * power(A, B - 1,
-                    C) % C) % C;
-        }
-
-        return (int)((y + C) % C);
+        return count;
     }
 
     public static void main(String[] args) {
-        FastReader m = new FastReader();
-        int test = m.nextInt();
+        FastReader in = new FastReader();
+        int test=in.nextInt();
         for (int i = 0; i < test; i++) {
-
-
-            int n = m.nextInt();
-            int Mm = m.nextInt();
-
-            int modulo = 1000000007;
-            int x = power(2, n, modulo);
-            x = (x - (1) % modulo) % modulo;
-            x=power(x, Mm, modulo);
-                System.out.println(x);
+            int n=in.nextInt();
+            int l=in.nextInt();
+            int u=in.nextInt();
+            int[] arr =new int[n];
+            for (int j = 0; j < n; j++) {
+                arr[j]=in.nextInt();
+            }
+            Arrays.sort(arr);
+            System.out.println(solve(arr,l,u));
         }
-
     }
 }
